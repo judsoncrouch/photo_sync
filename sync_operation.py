@@ -39,20 +39,24 @@ def sync_hdd_to_backup(hdd, backup):
 def main(processes):
 
     raw_dir = r"E:\Pictures\RAW"
-    catalog = "Catalog_JC"
-    hdd = "Photos_A1"
+    catalog_nm = "Catalog_JC"
+    hdd_nm = "Photos_A1"
 
-    backup = "Photos_A1_Backup"
+    backup_nm = "Photos_A1_Backup"
 
     try:
 
         drives = get_drive_names()
+        hdd = drives[hdd_nm]
+        backup = drives[backup_nm]
+        catalog = drives[catalog_nm]
+
 
         if processes == 'raw':
-            sync_raw_to_hdd(raw_dir, drives[hdd])
-            sync_hdd_to_backup(drives[hdd], drives[backup])
+            sync_raw_to_hdd(raw_dir, hdd)
+            sync_hdd_to_backup(hdd, backup)
         elif processes == 'catalog':
-            sync_catalog_to_backup(drives[catalog], drives[backup])
+            sync_catalog_to_backup(catalog, backup)
         else:
             sync_raw_to_hdd(raw_dir, hdd)
             sync_hdd_to_backup(hdd, backup)
